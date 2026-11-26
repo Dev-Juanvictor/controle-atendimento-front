@@ -4,9 +4,16 @@ Projeto final da disciplina **Front End** (UNINASSAU, 2026.2, Prof. João Ferrei
 Telas do sistema de senhas: totem, painel, guichê e gestão. Usa a API do projeto
 `controle-atendimento` (back end).
 
-**Equipe:** _(preencher: nome e matrícula de cada integrante)_
+**Equipe:** Nexos
 
-Back end (API): repositório `controle-atendimento` _(colocar o link)_.
+| Nome | Matrícula | Parte na apresentação |
+|---|---|---|
+| Juan Victor | 01822560 | Visão geral, arquitetura e encerramento |
+| Lucas Paes | 01809638 | Fluxo completo e cenário de falha |
+| Victor Daniel | 01821043 | Alternância e concorrência |
+| Rafael Sales | 01780786 | Relatórios, auditoria, segurança e LGPD |
+
+Back end (API): https://github.com/Dev-Juanvictor/controle-atendimento
 
 ## Tecnologias
 
