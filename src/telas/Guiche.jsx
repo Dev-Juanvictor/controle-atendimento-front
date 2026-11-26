@@ -107,7 +107,7 @@ function Atendimento({ sessao, onSair }) {
     <main className="tela guiche">
       <header className="guiche-topo">
         <div>
-          <h1>Guichê {sessao.guicheId}</h1>
+          <h1>Guichê {sessao.guicheNumero}</h1>
           <span>{sessao.usuario.nome}</span>
         </div>
         <Relogio />

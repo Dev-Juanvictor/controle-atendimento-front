@@ -370,3 +370,139 @@ kbd {
     transition: none !important;
   }
 }
+
+/* ---------- Gestão: abas, relatórios e cadastros ---------- */
+
+.abas {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 2px solid var(--borda);
+}
+
+.aba {
+  font: inherit;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-bottom: 4px solid transparent;
+  background: none;
+  color: var(--texto-suave);
+  cursor: pointer;
+}
+
+.aba-ativa {
+  color: var(--texto);
+  font-weight: 700;
+  border-bottom-color: var(--sg);
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.filtros label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-weight: 700;
+}
+
+.filtros input,
+.filtros select {
+  font: inherit;
+  padding: 0.6rem;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+}
+
+.numeros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.numero {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.numero strong {
+  font-size: 2rem;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tabela th,
+.tabela td {
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid var(--borda);
+  text-align: left;
+}
+
+.tabela th {
+  background: var(--fundo);
+}
+
+.rolagem .tabela td {
+  white-space: nowrap;
+}
+
+.rolagem {
+  max-height: 420px;
+  overflow: auto;
+}
+
+.indicadores {
+  padding-left: 1.2rem;
+  line-height: 1.8;
+}
+
+.duas-colunas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.botao-link {
+  font: inherit;
+  border: none;
+  background: none;
+  color: var(--sg);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.lista-guiches {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+}
+
+.lista-guiches li {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Impressão do relatório: some com botões, abas e formulários */
+@media print {
+  .nao-imprimir,
+  .abas,
+  .guiche-topo button,
+  .voltar {
+    display: none !important;
+  }
+
+  .rolagem {
+    max-height: none;
+    overflow: visible;
+  }
+}

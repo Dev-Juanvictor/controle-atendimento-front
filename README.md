@@ -6,6 +6,8 @@ Telas do sistema de senhas: totem, painel, guichê e gestão. Usa a API do proje
 
 **Equipe:** _(preencher: nome e matrícula de cada integrante)_
 
+Back end (API): repositório `controle-atendimento` _(colocar o link)_.
+
 ## Tecnologias
 
 - React 19 + Vite
@@ -18,7 +20,7 @@ Telas do sistema de senhas: totem, painel, guichê e gestão. Usa a API do proje
 | `#/totem` | Totem | Cliente tira a senha (sem login) |
 | `#/painel` | Painel | TV da sala de espera: últimas 5 chamadas, som e voz |
 | `#/guiche` | Guichê | Atendente: chamar, chamar novamente, iniciar, encerrar (atalhos P, N, I, E) |
-| `#/gestor` | Gestão | Gestor: acompanha as chamadas e encerra o expediente |
+| `#/gestor` | Gestão | Gestor: acompanhamento, relatórios (diário/mensal, TM, auditoria, indicadores), simulação de um dia, cadastros e registro de acesso |
 
 Cores das senhas (tampas dos tubos de coleta): **SP** roxa, **SE** dourada, **SG** azul.
 
@@ -106,6 +108,9 @@ Para testar o fluxo inteiro, abra cada tela numa aba:
 Para usar dois guichês ao mesmo tempo, abra o guichê em outra aba e entre com `atendente2`
 (o login fica salvo por aba).
 
+Para ver os relatórios com bastante dado: em **Gestão → Relatórios**, use **Simular um dia**
+(escolha um dia que já passou). O relatório daquele dia aparece em seguida.
+
 ---
 
 ## Problemas comuns
@@ -136,6 +141,7 @@ src/
 ├── componentes.jsx   Tubo, Relogio, Aviso, Voltar
 ├── estilos.css       cores e layout de todas as telas
 └── telas/            Inicio, Totem, Painel, Login, Guiche, Gestor
+    └── gestor/       abas da gestão: Acompanhamento, Relatorios, Cadastros
 ```
 
 **Como o front fala com a API:** o Vite repassa (proxy) tudo que começa com `/api` para
@@ -152,8 +158,19 @@ ações que fazem sentido naquele momento (ex.: com a senha em atendimento, só 
 
 ---
 
+## Acessibilidade
+
+- Áudio da chamada no painel (tipo, número e guichê), com "Última chamada" na 2ª vez
+- Fonte para baixa visão, números grandes e alto contraste
+- A cor do tipo sempre vem com o nome escrito (a cor nunca é a única informação)
+- Avisos lidos pelo leitor de tela (`aria-live`), campos com rótulo, foco visível
+- Atalhos de teclado no guichê (P, N, I, E)
+- Sem animações para quem pede "reduzir movimento" no sistema
+
+O GitHub confere a compilação a cada `push` (aba **Actions**, arquivo `.github/workflows/ci.yml`).
+
 ## Uso de IA generativa
 
-_(O edital exige declarar.)_ _(Escrever aqui como o grupo usou IA, por exemplo: "Usamos o
-Claude (Anthropic) como apoio para montar a estrutura das telas. O código foi revisado pela
-equipe e cada integrante sabe explicar as partes do projeto.")_
+Usamos o Claude (Anthropic) como ferramenta de apoio na estrutura das telas, no código e na
+documentação. Todo o código foi revisado e testado pela equipe, e cada integrante sabe
+explicar as partes do projeto.

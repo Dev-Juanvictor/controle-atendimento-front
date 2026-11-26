@@ -1,24 +1,36 @@
 // Login do atendente (com guichê) ou do gestor (guichê opcional)
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { api } from '../api.js'
 import { Aviso, Voltar } from '../componentes.jsx'
 
-const GUICHES = [1, 2, 3, 4, 5] // os mesmos do seed do banco
-
 export default function Login({ paraGestor = false, aviso = '', onEntrar }) {
   const [login, setLogin] = useState('')
   const [senha, setSenha] = useState('')
-  const [guiche, setGuiche] = useState(paraGestor ? '' : '1')
+  const [guiches, setGuiches] = useState([])
+  const [guicheId, setGuicheId] = useState('')
   const [erro, setErro] = useState('')
   const [enviando, setEnviando] = useState(false)
+
+  // A lista de guichês vem da API (o gestor pode cadastrar ou desativar guichês)
+  useEffect(() => {
+    api
+      .guiches()
+      .then((lista) => {
+        const ativos = lista.filter((g) => g.ativo)
+        setGuiches(ativos)
+        if (!paraGestor && ativos.length > 0) setGuicheId(String(ativos[0].id))
+      })
+      .catch((e) => setErro(e.message))
+  }, [paraGestor])
 
   async function entrar(evento) {
     evento.preventDefault()
     setEnviando(true)
     setErro('')
     try {
-      await api.login(login, senha, guiche ? Number(guiche) : null)
+      const guiche = guiches.find((g) => String(g.id) === guicheId) ?? null
+      await api.login(login, senha, guiche)
       onEntrar()
     } catch (e) {
       setErro(e.message)
@@ -52,11 +64,11 @@ export default function Login({ paraGestor = false, aviso = '', onEntrar }) {
 
         <label>
           Guichê
-          <select value={guiche} onChange={(e) => setGuiche(e.target.value)} required={!paraGestor}>
+          <select value={guicheId} onChange={(e) => setGuicheId(e.target.value)} required={!paraGestor}>
             {paraGestor && <option value="">Sem guichê</option>}
-            {GUICHES.map((n) => (
-              <option key={n} value={n}>
-                Guichê {n}
+            {guiches.map((g) => (
+              <option key={g.id} value={g.id}>
+                Guichê {g.numero}
               </option>
             ))}
           </select>

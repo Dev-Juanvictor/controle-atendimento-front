@@ -68,9 +68,15 @@ export const api = {
   emitirSenha: (tipo) => requisicao('POST', '/senhas', { tipo }),
   painel: () => requisicao('GET', '/painel'),
 
-  async login(login, senha, guicheId) {
-    const dados = await requisicao('POST', '/auth/login', { login, senha, guiche_id: guicheId })
-    salvarSessao({ token: dados.access_token, usuario: dados.usuario, guicheId: dados.guiche_id })
+  // guiche = {id, numero} escolhido na lista, ou null (gestor sem guichê)
+  async login(login, senha, guiche) {
+    const dados = await requisicao('POST', '/auth/login', { login, senha, guiche_id: guiche?.id ?? null })
+    salvarSessao({
+      token: dados.access_token,
+      usuario: dados.usuario,
+      guicheId: guiche?.id ?? null,
+      guicheNumero: guiche?.numero ?? null,
+    })
     return dados
   },
 
@@ -89,4 +95,18 @@ export const api = {
   iniciar: () => requisicao('POST', '/atendimentos/iniciar'),
   encerrar: () => requisicao('POST', '/atendimentos/encerrar'),
   encerrarExpediente: () => requisicao('POST', '/expediente/encerrar'),
+
+  // Gestor: relatórios e simulação
+  relatorioDiario: (data) => requisicao('GET', `/relatorios/diario?data=${data}`),
+  relatorioMensal: (ano, mes) => requisicao('GET', `/relatorios/mensal?ano=${ano}&mes=${mes}`),
+  simularDia: (dia, quantidade) => requisicao('POST', '/simulacao', { dia, quantidade }),
+
+  // Gestor: cadastros e registro de acesso
+  guiches: () => requisicao('GET', '/guiches'),
+  criarGuiche: (numero) => requisicao('POST', '/guiches', { numero }),
+  alterarGuiche: (id, ativo) => requisicao('PATCH', `/guiches/${id}`, { ativo }),
+  usuarios: () => requisicao('GET', '/usuarios'),
+  criarUsuario: (dados) => requisicao('POST', '/usuarios', dados),
+  alterarUsuario: (id, ativo) => requisicao('PATCH', `/usuarios/${id}`, { ativo }),
+  acessos: () => requisicao('GET', '/acessos?limite=50'),
 }
